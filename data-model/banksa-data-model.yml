@@ -1,0 +1,34 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  Derived from the object relationships in
+  openapi/banksa-cds-banking-products-openapi.yml (schema $ref links and
+  id-reference fields) and the DSB Consumer Data Standards banking object
+  definitions. Captures the core entity-relationship graph behind BankSA's CDR
+  Banking surface.
+docs: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
+notation: >-
+  relationships use has_one / has_many / belongs_to with the id/foreign-key
+  field name; direction is from the entity that owns the reference.
+entities:
+- {name: BankingProduct, id_field: productId, domain: product-reference-data, description: A publicly listed banking product (account, loan, card). Public PRD.}
+- {name: BankingAccount, id_field: accountId, domain: accounts, description: A consumer's account held with BankSA.}
+- {name: BankingBalance, id_field: accountId, domain: accounts, description: The current/available balance for an account.}
+- {name: BankingTransaction, id_field: transactionId, domain: transactions, description: A transaction posted against an account.}
+- {name: BankingDirectDebitAuthorisation, id_field: accountId, domain: regular-payments, description: A direct-debit authorisation on an account.}
+- {name: BankingScheduledPayment, id_field: scheduledPaymentId, domain: regular-payments, description: A scheduled payment from an account.}
+- {name: BankingInstalmentPlan, id_field: accountId, domain: regular-payments, description: An instalment/payment plan on an account.}
+- {name: BankingPayee, id_field: payeeId, domain: payees, description: A saved payee for the consumer.}
+relationships:
+- {from: BankingAccount, to: BankingBalance, kind: has_one, via: accountId}
+- {from: BankingAccount, to: BankingTransaction, kind: has_many, via: accountId}
+- {from: BankingAccount, to: BankingDirectDebitAuthorisation, kind: has_many, via: accountId}
+- {from: BankingAccount, to: BankingScheduledPayment, kind: has_many, via: accountId}
+- {from: BankingAccount, to: BankingInstalmentPlan, kind: has_many, via: accountId}
+- {from: BankingTransaction, to: BankingAccount, kind: belongs_to, via: accountId}
+- {from: BankingScheduledPayment, to: BankingAccount, kind: belongs_to, via: from.accountId}
+- {from: BankingScheduledPayment, to: BankingPayee, kind: belongs_to, via: payeeReference}
+- {from: BankingProduct, to: BankingAccount, kind: has_many, via: productCategory}
+notes: >-
+  BankingProduct is the only publicly readable entity; the rest require a CDR
+  consumer-consent (accredited data recipient) session.

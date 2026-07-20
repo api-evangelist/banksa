@@ -1,0 +1,64 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes
+  — the Consumer Data Right banking authorisation scopes. The harvested spec
+  declares no oauth2 securitySchemes (auth is defined by the separate CDR
+  Security Profile), so scopes are captured from the DSB Consumer Data Standards
+  that BankSA's data-holder host conforms to. The public Product Reference Data
+  endpoints require NO scope; every other endpoint in the spec requires the CDR
+  scope mapped below, granted only through a consumer's consent to an accredited
+  data recipient.
+docs: https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes
+schemes:
+- name: CDRConsumerDataSharing
+  source: openapi/banksa-cds-banking-products-openapi.yml
+  profile: FAPI 1.0 Advanced (CDR Security Profile)
+  flows:
+  - flow: authorizationCode
+    note: >-
+      Authorization/token endpoints are per-data-holder and discovered by
+      accredited data recipients through the CDR Register, not published on a
+      public BankSA host.
+scopes:
+- scope: openid
+  description: OpenID Connect authentication of the consumer.
+  flows: [authorizationCode]
+- scope: profile
+  description: Basic OpenID Connect profile claims for the consenting consumer.
+  flows: [authorizationCode]
+- scope: bank:accounts.basic:read
+  description: Read the consumer's account list and basic account attributes.
+  endpoints:
+  - GET /banking/accounts
+  - GET /banking/accounts/balances
+  - GET /banking/accounts/{accountId}/balance
+- scope: bank:accounts.detail:read
+  description: Read full detail for a specific account (features, rates, terms).
+  endpoints:
+  - GET /banking/accounts/{accountId}
+- scope: bank:transactions:read
+  description: Read transactions for the consumer's accounts.
+  endpoints:
+  - GET /banking/accounts/{accountId}/transactions
+  - GET /banking/accounts/{accountId}/transactions/{transactionId}
+- scope: bank:regular_payments:read
+  description: >-
+    Read direct debits, scheduled payments and instalment plans on the
+    consumer's accounts.
+  endpoints:
+  - GET /banking/accounts/{accountId}/direct-debits
+  - GET /banking/accounts/{accountId}/payments/scheduled
+  - GET /banking/accounts/{accountId}/payments/plans
+- scope: bank:payees:read
+  description: Read the consumer's saved payees.
+  endpoints:
+  - GET /banking/payees
+  - GET /banking/payees/{payeeId}
+- scope: common:customer.basic:read
+  description: Read the consumer's basic customer/contact information.
+- scope: common:customer.detail:read
+  description: Read the consumer's detailed customer information.
+public_endpoints_no_scope:
+- GET /banking/products
+- GET /banking/products/{productId}

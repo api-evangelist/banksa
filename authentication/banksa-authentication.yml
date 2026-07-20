@@ -1,0 +1,64 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://consumerdatastandardsaustralia.github.io/standards/#security-profile
+  and the CDR Register / InfoSec profile. The harvested OpenAPI
+  (openapi/banksa-cds-banking-products-openapi.yml) declares no inline
+  securitySchemes because, under the Australian Consumer Data Right, transport
+  and client authentication are defined by the CDR Security Profile
+  (FAPI 1.0 Advanced) separately from the resource-endpoint contract. This
+  profile records the two distinct authentication postures BankSA's CDR host
+  actually exposes.
+summary:
+  types: [none, oauth2, openIdConnect, mutualTLS]
+  public_prd: none
+  oauth2_flows: [authorizationCode]
+  fapi_profile: FAPI 1.0 Advanced (CDR Security Profile)
+schemes:
+- name: PublicProductReferenceData
+  type: none
+  applies_to:
+  - GET /banking/products
+  - GET /banking/products/{productId}
+  description: >-
+    Product Reference Data (PRD) endpoints are mandated by the CDR to be public
+    and unauthenticated. BankSA's live host returns HTTP 200 for these with no
+    Authorization header and no client certificate. A valid x-v version header
+    is still required (see conventions/banksa-conventions.yml).
+  sources: [openapi/banksa-cds-banking-products-openapi.yml]
+- name: CDRConsumerDataSharing
+  type: oauth2
+  scheme: FAPI 1.0 Advanced authorization-code with PAR + PKCE
+  description: >-
+    All consumer-data endpoints in this spec (accounts, balances, transactions,
+    direct debits, scheduled payments, payees) are only reachable by an
+    accredited data recipient (ADR) acting on a consumer's behalf. Authorization
+    uses OAuth 2.0 authorization-code with the OpenID Connect hybrid flow under
+    the FAPI 1.0 Advanced profile: Pushed Authorization Requests (PAR), PKCE,
+    request objects (JAR), and confirmation of the consumer's consent via the
+    CDR authorization server. Tokens are bound with mTLS sender-constrained
+    access tokens.
+  flows:
+  - flow: authorizationCode
+    scopes: 9
+    detail: scopes/banksa-scopes.yml
+  sources: [openapi/banksa-cds-banking-products-openapi.yml]
+- name: CDRmTLS
+  type: mutualTLS
+  description: >-
+    The data-holder resource server is exposed on an mTLS endpoint (the OpenAPI
+    server is described as "MTLS"). Accredited data recipients present a client
+    certificate issued through the CDR Register PKI; access tokens are
+    sender-constrained (bound to the client certificate) per FAPI.
+  sources: [openapi/banksa-cds-banking-products-openapi.yml]
+- name: CDROpenIDConnect
+  type: openIdConnect
+  description: >-
+    Consumer authentication and consent are brokered through the data holder's
+    OpenID Provider, discovered by ADRs via the CDR Register rather than a public
+    /.well-known/openid-configuration on digital-api.banksa.com.au.
+  sources: [openapi/banksa-cds-banking-products-openapi.yml]
+notes: >-
+  BankSA does not operate an independent developer portal or issue self-service
+  API keys. There is no path to the consumer-data endpoints outside CDR
+  accreditation; the only openly consumable surface is the public PRD.

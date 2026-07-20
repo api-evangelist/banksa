@@ -1,0 +1,76 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: >-
+  Derived candidate MCP tool surface — one tool per operationId in
+  openapi/banksa-cds-banking-products-openapi.yml. BankSA publishes no official
+  hosted or local MCP server (no developer portal, no npm/registry package
+  found). Only the two Product Reference Data tools are publicly callable without
+  CDR accreditation; the remaining tools require an accredited-data-recipient
+  OAuth/mTLS session and are listed for completeness of the standard's surface.
+server:
+  name: banksa-cdr-banking
+  transport: http
+  url: null
+  auth: >-
+    Public PRD tools: none. Consumer-data tools: OAuth 2.0 / FAPI 1.0 Advanced
+    with mTLS (CDR accredited data recipient) — not self-service.
+public_tools:
+- name: list_banking_products
+  description: List BankSA banking products (public CDR Product Reference Data).
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listBankingProducts
+- name: get_banking_product_detail
+  description: Get full detail for a single BankSA banking product.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#getBankingProductDetail
+consumer_data_tools:
+- name: list_banking_accounts
+  description: List the consumer's accounts (requires CDR consent, bank:accounts.basic:read).
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listBankingAccounts
+- name: get_banking_account_detail
+  description: Get detail for one of the consumer's accounts.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#getBankingAccountDetail
+- name: list_banking_balances_bulk
+  description: List balances across the consumer's accounts.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listBankingBalancesBulk
+- name: list_banking_balances_specific_accounts
+  description: List balances for a specified set of accounts.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listBankingBalancesSpecificAccounts
+- name: get_banking_balance
+  description: Get the balance for one account.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#getBankingBalance
+- name: list_banking_transactions
+  description: List transactions for one account.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listBankingTransactions
+- name: get_banking_transaction_detail
+  description: Get detail for one transaction.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#getBankingTransactionDetail
+- name: list_direct_debits
+  description: List direct debits for one account.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listDirectDebits
+- name: list_direct_debits_bulk
+  description: List direct debits across the consumer's accounts.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listDirectDebitsBulk
+- name: list_direct_debits_specific_accounts
+  description: List direct debits for a specified set of accounts.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listDirectDebitsSpecificAccounts
+- name: list_scheduled_payments
+  description: List scheduled payments for one account.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listScheduledPayments
+- name: list_scheduled_payments_bulk
+  description: List scheduled payments across the consumer's accounts.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listScheduledPaymentsBulk
+- name: list_scheduled_payments_specific_accounts
+  description: List scheduled payments for a specified set of accounts.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listScheduledPaymentsSpecificAccounts
+- name: list_instalment_plans
+  description: List instalment plans for one account.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listInstalmentPlans
+- name: list_instalment_plans_bulk
+  description: List instalment plans across the consumer's accounts.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listInstalmentPlansBulk
+- name: list_banking_payees
+  description: List the consumer's saved payees.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#listBankingPayees
+- name: get_banking_payee_detail
+  description: Get detail for one payee.
+  source_operation: openapi/banksa-cds-banking-products-openapi.yml#getBankingPayeeDetail

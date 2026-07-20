@@ -1,0 +1,40 @@
+generated: '2026-07-20'
+method: searched
+description: >-
+  Probe of the /.well-known/ discovery surface on BankSA's public API host
+  (digital-api.banksa.com.au) and the corporate website (www.banksa.com.au).
+  BankSA runs the Australian Consumer Data Right (CDR) Product Reference Data
+  host behind an API gateway/WAF that rejects unrecognised paths with HTTP 403
+  and a small JSON error body; the marketing site answers /.well-known/* with
+  its standard HTML 404 page. No RFC 9116 security.txt, OIDC discovery, OAuth
+  authorization-server metadata, api-catalog, or ai-plugin manifest is exposed
+  on these hosts. Under the CDR the OpenID Provider / InfoSec discovery lives on
+  the accredited data-holder identity infrastructure surfaced through the CDR
+  Register, not on these public hostnames. Statuses are the HTTP codes observed
+  at probe time; no document was a real, correctly-typed payload, so none were
+  saved.
+hosts:
+- host: https://digital-api.banksa.com.au
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+- host: https://www.banksa.com.au
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404

@@ -1,0 +1,55 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  Derived from the harvested CDR Banking API spec
+  (openapi/banksa-cds-banking-products-openapi.yml) plus the DSB Consumer Data
+  Standards and CDR Security Profile that BankSA's data-holder host conforms to.
+  Asserts which industry / cross-cutting standards the API conforms to; NOT a
+  BankSA-published certification claim.
+standards:
+- id: cdr-consumer-data-standards
+  conforms: true
+  evidence: >-
+    Live host implements the DSB Consumer Data Standards CDR Banking API
+    (title "CDR Banking API", version 1.36.0); PRD endpoints return HTTP 200 with
+    x-v version negotiation.
+- id: cdr-product-reference-data
+  conforms: true
+  evidence: Public unauthenticated GET /banking/products and /banking/products/{productId} confirmed live (HTTP 200).
+- id: oauth2
+  conforms: true
+  evidence: Consumer-data sharing uses OAuth 2.0 authorization-code under the CDR Security Profile (external to this spec's resource contract).
+- id: oidc
+  conforms: true
+  evidence: OpenID Connect hybrid flow for consumer authentication/consent via the data holder's OpenID Provider (CDR Register discovery).
+- id: fapi
+  conforms: true
+  evidence: CDR Security Profile mandates FAPI 1.0 Advanced (PAR, PKCE, JAR, mTLS sender-constrained tokens) for accredited data recipients.
+- id: mutual-tls
+  conforms: true
+  evidence: Resource server exposed on an mTLS endpoint (OpenAPI server described as "MTLS"); ADR client certificates via the CDR Register PKI.
+- id: pagination
+  conforms: true
+  evidence: page / page-size query params with meta.totalRecords/totalPages and links.first/prev/self/next/last per CDS.
+- id: header-versioning
+  conforms: true
+  evidence: x-v / x-min-v request headers with x-v response header; 406 on unsupported version.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use the CDS ResponseErrorListV2 envelope ({ errors: [ ... ] }) with
+    urn:au-cds error codes, not application/problem+json.
+- id: idempotency
+  conforms: false
+  evidence: Read-only API; no idempotency-key mechanism.
+- id: json-api
+  conforms: false
+- id: scim
+  conforms: false
+- id: fhir-r4
+  conforms: false
+- id: odata
+  conforms: false
+- id: psd2
+  conforms: false
+  evidence: BankSA operates under the Australian CDR regime, not the EU PSD2 open-banking framework.

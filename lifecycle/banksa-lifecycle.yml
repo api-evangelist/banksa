@@ -1,0 +1,42 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://consumerdatastandardsaustralia.github.io/standards/#versioning and the
+  CDR endpoint version schedule / decommissioning process, cross-referenced with
+  the harvested spec. BankSA's API lifecycle is governed by the DSB Consumer Data
+  Standards (which version and retire endpoints) rather than a BankSA-authored
+  policy, because BankSA implements the shared CDR Banking standard.
+versioning:
+  scheme: per-endpoint integer versioning, negotiated by header
+  mechanism: >-
+    Client sends x-v (requested version) and optional x-min-v (minimum
+    acceptable); the data holder returns the served version in the x-v response
+    header, or HTTP 406 if it cannot satisfy the requested range.
+  observed:
+    GET /banking/products: versions 4 and 5 supported
+    GET /banking/products/{productId}: versions 6 and 7 supported
+  spec_version: CDR Banking API 1.36.0 (DSB Consumer Data Standards)
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+deprecation:
+  policy: >-
+    The DSB maintains a published endpoint version schedule; superseded endpoint
+    versions are marked obsolete and retired on future-dated obligation dates.
+    The harvested spec documents obsolete prior versions per endpoint (e.g.
+    get-accounts v1/v2 links). Data holders including BankSA must retire obsolete
+    versions on the standards' decommissioning dates.
+  policy_url: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+  sunset_header: false
+  retirement_model: DSB Future Dated Obligations / endpoint version decommissioning schedule
+sla:
+  url: null
+  public_uptime_target: null
+  notes: >-
+    Availability is governed by the CDR Non-Functional Requirements (data-holder
+    availability and performance obligations) rather than a public numeric SLA on
+    a BankSA developer site.
+status_page: null
+status_note: >-
+  No public BankSA developer/API status page was located; BankSA operates no
+  self-service developer portal. CDR ecosystem availability is monitored through
+  the CDR Register/ACCC rather than a BankSA status page.
+deprecated_operations: []

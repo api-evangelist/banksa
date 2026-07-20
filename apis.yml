@@ -73,6 +73,36 @@ apis:
     HTTP 200 with an x-v response header (versions 6 and 7 supported). Part of the same
     DSB Consumer Data Standards CDR Banking PRD surface as the product listing endpoint.
 common:
+- type: VulnerabilityDisclosure
+  url: security/banksa-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.banksa.com.au/online-services/security-centre
+- type: DomainSecurity
+  url: security/banksa-domain-security.yml
+- type: Authentication
+  url: authentication/banksa-authentication.yml
+- type: OAuthScopes
+  url: scopes/banksa-scopes.yml
+- type: Conventions
+  url: conventions/banksa-conventions.yml
+- type: ErrorCatalog
+  url: errors/banksa-problem-types.yml
+- type: Conformance
+  url: conformance/banksa-conformance.yml
+- type: Lifecycle
+  url: lifecycle/banksa-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/banksa-lifecycle.yml
+- type: DataModel
+  url: data-model/banksa-data-model.yml
+- type: MCPServer
+  url: mcp/banksa-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/banksa-cds-banking-products-overlay.yaml
+- type: LLMsTxt
+  url: llms/banksa-llms.txt
 - type: Website
   url: https://www.banksa.com.au/
 - type: PrivacyPolicy

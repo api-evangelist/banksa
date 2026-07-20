@@ -1,0 +1,105 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://consumerdatastandardsaustralia.github.io/standards/#http-headers and
+  #pagination, cross-referenced with the harvested spec
+  (openapi/banksa-cds-banking-products-openapi.yml). Cross-cutting request/
+  response semantics that every BankSA CDR Banking endpoint follows, defined by
+  the DSB Consumer Data Standards rather than a BankSA-specific contract.
+description: >-
+  How BankSA's Consumer Data Right Banking API behaves across every operation:
+  version negotiation via headers, request correlation, pagination, the CDR
+  error envelope, and the authentication posture. These are the DSB Consumer
+  Data Standards conventions the data-holder host implements.
+
+base_url: https://digital-api.banksa.com.au/cds-au/v1
+api_style: REST over HTTPS, JSON responses (application/json)
+
+authentication:
+  public_prd: none — Product Reference Data endpoints are unauthenticated.
+  consumer_data: OAuth 2.0 / OpenID Connect under FAPI 1.0 Advanced (CDR Security Profile), mTLS sender-constrained tokens.
+  detail: authentication/banksa-authentication.yml
+  scopes: scopes/banksa-scopes.yml
+
+idempotency:
+  supported: false
+  note: >-
+    The CDR Banking API surface is read-only. All endpoints are GET, except the
+    "specific accounts" batch reads (POST /banking/accounts/balances,
+    /banking/accounts/direct-debits, /banking/payments/scheduled) which pass an
+    account-id list in the body to retrieve data — they create no resource and
+    define no idempotency key.
+
+versioning:
+  scheme: header-based per-endpoint version negotiation
+  request_headers:
+    x-v: Requested endpoint version (mandatory). Highest version the client supports.
+    x-min-v: Minimum endpoint version the client will accept (optional).
+  response_headers:
+    x-v: The endpoint version actually returned.
+  observed:
+    GET /banking/products: x-v 4 and 5 supported
+    GET /banking/products/{productId}: x-v 6 and 7 supported
+  unsupported_version_status: 406
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+  detail: lifecycle/banksa-lifecycle.yml
+
+request_tracing:
+  header: x-fapi-interaction-id
+  description: >-
+    Client-supplied RFC 4122 UUID echoed back in the response for end-to-end
+    correlation; if the client omits it the data holder generates one and
+    returns it. Used for support and log lookup.
+
+fapi_headers:
+  description: Additional headers required on authenticated (consumer-data) calls.
+  headers:
+  - Authorization — Bearer access token (mTLS sender-constrained).
+  - x-fapi-auth-date — time the customer last authenticated.
+  - x-fapi-customer-ip-address — customer IP for customer-present calls.
+  - x-cds-client-headers — base64-encoded consumer user-agent headers.
+
+pagination:
+  style: page-number
+  request_params:
+    page: 1-based page number (default 1).
+    page-size: records per page (default 25, maximum 1000).
+  response_fields:
+    meta.totalRecords: total number of records across all pages.
+    meta.totalPages: total number of pages.
+    links.first: first page URL.
+    links.prev: previous page URL (absent on first page).
+    links.self: current page URL.
+    links.next: next page URL (absent on last page).
+    links.last: last page URL.
+  observed:
+    GET /banking/products: meta.totalRecords 40, meta.totalPages 8 (page-size 5 default page)
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#pagination
+
+error_envelope:
+  media_type: application/json
+  rfc9457: false
+  shape: '{ "errors": [ { "code", "title", "detail", "meta" } ] }'
+  schema: ResponseErrorListV2 (components.schemas in the OpenAPI)
+  code_format: >-
+    CDR error-code URN, e.g. urn:au-cds:error:cds:field/Invalid,
+    urn:au-cds:error:cds:resource/NotFound.
+  detail: errors/banksa-problem-types.yml
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#error-codes
+
+rate_limits:
+  signalling: >-
+    No standardised rate-limit response header. The CDR Non-Functional
+    Requirements (NFRs) define traffic thresholds (transactions per second) by
+    traffic class — unauthenticated (PRD), unattended, high-availability, and
+    large-payload — that data holders such as BankSA must sustain; exceeding a
+    data holder's capacity surfaces as HTTP 429 or a 5xx.
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#non-functional-requirements
+
+other_conventions:
+- name: Product categories
+  detail: BankSA PRD returns 40 products across CDR BankingProductCategory values (transaction/savings accounts, home loans, credit cards, etc.).
+- name: Amounts and currency
+  detail: Monetary amounts are strings with currency defaulting to AUD per CDS AmountString/CurrencyString common field types.
+- name: Dates
+  detail: DateString / DateTimeString common field types (ISO 8601).

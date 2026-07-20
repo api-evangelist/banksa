@@ -1,0 +1,85 @@
+generated: '2026-07-20'
+method: searched
+format: cds-response-error-list
+source: >-
+  Derived from the 4xx responses across
+  openapi/banksa-cds-banking-products-openapi.yml (every operation returns some
+  of 400/404/406/422 via the shared ResponseErrorListV2 schema), enriched with
+  the DSB Consumer Data Standards error-code registry
+  (https://consumerdatastandardsaustralia.github.io/standards/#error-codes).
+  BankSA's CDR Banking API does NOT use RFC 9457 application/problem+json; every
+  error is returned as { "errors": [ { code, title, detail, meta } ] }.
+envelope:
+  media_type: application/json
+  schema: ResponseErrorListV2
+  shape: '{ "errors": [ { "code": string(URN), "title": string, "detail": string, "meta": object } ] }'
+  fields:
+    code: The CDR error-code URN (or an application-specific code that extends a URN carried in meta).
+    title: Stable, human-readable summary that does not vary per occurrence.
+    detail: Occurrence-specific human-readable explanation.
+    meta: Optional additional structure (e.g. the URN a custom code extends).
+status_codes:
+- status: 400
+  meaning: Bad Request — malformed request, invalid or missing field/header/query parameter.
+  seen_on: most list and detail operations
+- status: 404
+  meaning: Not Found — the referenced account, transaction, payee or product does not exist or is not shareable.
+  seen_on: detail operations with a path id (accounts, transactions, payees, products, balance)
+- status: 406
+  meaning: Not Acceptable — the requested endpoint version (x-v / x-min-v) is not supported by the data holder.
+  seen_on: all operations
+- status: 422
+  meaning: Unprocessable Entity — the request was well-formed but a value could not be processed (e.g. invalid page size, invalid banking account in a batch).
+  seen_on: list and batch operations
+problems:
+- code: urn:au-cds:error:cds:field/Invalid
+  status: 400
+  title: Invalid Field
+  detail: A supplied field or query parameter failed validation.
+- code: urn:au-cds:error:cds:field/Missing
+  status: 400
+  title: Missing Required Field
+  detail: A mandatory field or query parameter was not supplied.
+- code: urn:au-cds:error:cds:header/Invalid
+  status: 400
+  title: Invalid Header
+  detail: A supplied HTTP header (e.g. x-v, x-fapi-interaction-id) is malformed.
+- code: urn:au-cds:error:cds:header/Missing
+  status: 400
+  title: Missing Required Header
+  detail: A mandatory HTTP header (e.g. x-v) was not supplied.
+  remediation: Send a valid x-v header with a supported endpoint version.
+- code: urn:au-cds:error:cds:field/InvalidPageSize
+  status: 422
+  title: Invalid Page Size
+  detail: page-size is outside the permitted range (1–1000).
+  remediation: Use a page-size between 1 and 1000.
+- code: urn:au-cds:error:cds:field/InvalidPage
+  status: 422
+  title: Invalid Page
+  detail: The requested page number is out of range for the result set.
+- code: urn:au-cds:error:cds:header/InvalidVersion
+  status: 406
+  title: Invalid Version
+  detail: The x-v or x-min-v header value is not a positive integer.
+- code: urn:au-cds:error:cds:header/UnsupportedVersion
+  status: 406
+  title: Unsupported Version
+  detail: The requested endpoint version is not supported by BankSA's data-holder host.
+  remediation: Request a supported version (e.g. x-v 5 for GET /banking/products, x-v 7 for product detail).
+- code: urn:au-cds:error:cds:resource/NotFound
+  status: 404
+  title: Resource Not Found
+  detail: The referenced resource (account, transaction, payee, product) does not exist.
+- code: urn:au-cds:error:cds:resource/Unavailable
+  status: 404
+  title: Resource Is Temporarily Unavailable
+  detail: The resource exists but is temporarily unavailable.
+- code: urn:au-cds:error:cds:resource/Invalid
+  status: 422
+  title: Invalid Resource
+  detail: The referenced resource is invalid for this request.
+- code: urn:au-cds:error:cds:resource/InvalidBankingAccount
+  status: 422
+  title: Invalid Banking Account
+  detail: An account id supplied in a batch (specific-accounts) request is invalid or not consented.

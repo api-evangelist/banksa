@@ -1,0 +1,33 @@
+# BankSA
+
+> BankSA is a South Australian retail and business banking brand operating as a division of Westpac Banking Corporation (ABN 33 007 457 141, AFSL and Australian credit licence 233714). Under Australia's Consumer Data Right (CDR / Open Banking), BankSA exposes a live, public, unauthenticated Product Reference Data (PRD) API at digital-api.banksa.com.au conforming to the DSB Consumer Data Standards. Consumer and account data sharing beyond product reference data runs on the accredited-data-recipient (ADR) model with OAuth2 / OpenID Connect (FAPI 1.0 Advanced) authorization. BankSA does not operate an open self-service developer portal.
+
+## APIs
+- [BankSA CDR Product Reference Data API](https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products): Public GET /banking/products — lists ~40 BankSA banking products. Base: https://digital-api.banksa.com.au/cds-au/v1
+- [BankSA CDR Product Detail API](https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-product-detail): Public GET /banking/products/{productId} — full product detail.
+
+## Specs
+- [OpenAPI (CDR Banking API 1.36.0)](openapi/banksa-cds-banking-products-openapi.yml): The shared DSB Consumer Data Standards CDR Banking contract BankSA's host conforms to (products + authenticated account/balance/transaction/payee endpoints).
+- [OpenAPI Overlay](overlays/banksa-cds-banking-products-overlay.yaml): API Evangelist enhancements (production server, public-endpoint markers).
+
+## Authentication & Authorization
+- [Authentication profile](authentication/banksa-authentication.yml): PRD is unauthenticated; consumer data uses OAuth2 / OIDC (FAPI 1.0 Advanced) + mTLS via CDR accreditation.
+- [OAuth / CDR scopes](scopes/banksa-scopes.yml): bank:accounts.basic:read, bank:accounts.detail:read, bank:transactions:read, bank:regular_payments:read, bank:payees:read, common:customer.*:read.
+
+## Conventions & Errors
+- [API conventions](conventions/banksa-conventions.yml): x-v/x-min-v version headers, x-fapi-interaction-id tracing, page/page-size pagination, CDS error envelope.
+- [Error catalog](errors/banksa-problem-types.yml): CDS ResponseErrorListV2 { errors:[{code,title,detail,meta}] } with urn:au-cds error codes (400/404/406/422).
+- [Conformance](conformance/banksa-conformance.yml): CDR Consumer Data Standards, FAPI, OAuth2, OIDC, mTLS, header versioning, page pagination.
+- [Lifecycle](lifecycle/banksa-lifecycle.yml): per-endpoint integer versioning; DSB decommissioning schedule.
+- [Data model](data-model/banksa-data-model.yml): product / account / balance / transaction / payee entity graph.
+
+## Agents
+- [MCP tool surface (candidate)](mcp/banksa-mcp.yml): derived tools per operationId.
+- [Agent skill: browse public products](skills/banksa-browse-public-products.md)
+- [Agent skill: read consumer account data (CDR)](skills/banksa-consumer-account-data.md)
+
+## Docs
+- [DSB Consumer Data Standards](https://consumerdatastandardsaustralia.github.io/standards/): The standard the PRD API conforms to.
+- [BankSA website](https://www.banksa.com.au/)
+- [Privacy policy](https://www.banksa.com.au/privacy)
+- [Security centre](https://www.banksa.com.au/online-services/security-centre)

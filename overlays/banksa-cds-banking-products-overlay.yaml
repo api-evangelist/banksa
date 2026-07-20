@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for BankSA CDR Banking API
+  version: 1.0.0
+extends: openapi/banksa-cds-banking-products-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: BankSA (division of Westpac Banking Corporation)
+    x-apievangelist-cdr-role: data-holder
+    x-apievangelist-spec-provenance: DSB Consumer Data Standards CDR Banking API (shared standard, not BankSA-proprietary)
+    x-apievangelist-public-surface: Product Reference Data (GET /banking/products, GET /banking/products/{productId})
+    x-apievangelist-authentication: authentication/banksa-authentication.yml
+    x-apievangelist-conventions: conventions/banksa-conventions.yml
+    x-apievangelist-errors: errors/banksa-problem-types.yml
+- target: $.servers
+  update:
+  - description: BankSA CDR production host (Product Reference Data is public/unauthenticated)
+    url: https://digital-api.banksa.com.au/cds-au/v1
+- target: $.paths./banking/products.get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-verified: 'HTTP 200, x-v 4/5, 40 products (2026-07-20)'
+- target: $.paths./banking/products/{productId}.get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-verified: 'HTTP 200, x-v 6/7 (2026-07-20)'

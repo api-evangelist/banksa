@@ -1,0 +1,18 @@
+generated: '2026-07-20'
+method: generated
+source: >-
+  Packaged Agent Skills generated from BankSA's CDR Banking OpenAPI. Every step
+  is grounded in an operationId verified verbatim in
+  ../openapi/banksa-cds-banking-products-openapi.yml; cross-cutting rules cite
+  ../conventions/, ../errors/, ../authentication/ and ../scopes/.
+skills:
+- file: banksa-browse-public-products.md
+  name: Browse BankSA public banking products
+  api: openapi/banksa-cds-banking-products-openapi.yml
+  operations: [listBankingProducts, getBankingProductDetail]
+  auth: none (public CDR Product Reference Data)
+- file: banksa-consumer-account-data.md
+  name: Read a consumer's BankSA account data (CDR)
+  api: openapi/banksa-cds-banking-products-openapi.yml
+  operations: [listBankingAccounts, getBankingAccountDetail, listBankingBalancesBulk, getBankingBalance, listBankingTransactions, getBankingTransactionDetail]
+  auth: OAuth2 / FAPI 1.0 Advanced + mTLS (CDR accredited data recipient)
