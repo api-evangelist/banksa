@@ -1,0 +1,73 @@
+aid: banksa
+name: BankSA
+review:
+  question: Does BankSA expose a confirmed live public API, and is it a proprietary
+    contract or the shared CDR standard?
+  answer: true
+  date: '2026-07-20'
+  reviewer: API Evangelist
+  cdrPrdConfirmed: true
+  developerPortal: false
+  specProvenance: DSB Consumer Data Standards (shared CDR Banking API standard, not
+    a BankSA-proprietary contract)
+findings:
+  summary: |
+    BankSA's only confirmed public, unauthenticated API surface is the Australian
+    Consumer Data Right (CDR / Open Banking) Product Reference Data (PRD) API, hosted
+    at https://digital-api.banksa.com.au/cds-au/v1. The product listing endpoint
+    (GET /banking/products) returned HTTP 200 with x-v response header (versions 4
+    and 5 supported) and a data.products array of 40 products (meta.totalRecords: 40,
+    totalPages: 8). The product detail endpoint (GET /banking/products/{productId})
+    returned HTTP 200 with x-v versions 6 and 7 supported. Both are genuinely public
+    and require no authentication - they are mandated by the CDR for every active ADI.
+
+    BankSA operates as a division of Westpac Banking Corporation (ABN 33 007 457 141,
+    AFSL and Australian credit licence 233714), sharing the Westpac Group core banking
+    platform and CDR infrastructure with sibling brands St.George (digital-api.stgeorge.com.au,
+    HTTP 200) and Bank of Melbourne (digital-api.bankofmelbourne.com.au, HTTP 200).
+    It is not a mutual or standalone ADI.
+
+    No open, self-service developer portal exists: developer.banksa.com.au does not
+    resolve (DNS failure), and no public Consumer Data Right marketing/policy page was
+    locatable under www.banksa.com.au (candidate CDR paths returned HTTP 404). Data
+    sharing beyond product reference data follows the CDR accredited-data-recipient
+    (ADR) model - consumer authorization uses OAuth2 / OpenID Connect under the FAPI
+    profile through the CDR ecosystem, with the consumer-facing data-sharing dashboard
+    living inside authenticated internet banking rather than a documented public API.
+
+    The harvested OpenAPI is the shared DSB Consumer Data Standards CDR Banking API
+    (title: "CDR Banking API", version 1.36.0, OpenAPI 3.0.3), NOT a BankSA-proprietary
+    specification. BankSA's live host implements this standard contract.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://digital-api.banksa.com.au/cds-au/v1
+      documented: true
+      note: CDR PRD endpoints; versioned via x-v request/response header per DSB CDS.
+  endpointsConfirmedPublic:
+    - GET https://digital-api.banksa.com.au/cds-au/v1/banking/products (HTTP 200, x-v 4/5, 40 products)
+    - GET https://digital-api.banksa.com.au/cds-au/v1/banking/products/{productId} (HTTP 200, x-v 6/7)
+  authModel:
+    prd: none (public, unauthenticated - CDR mandated)
+    consumerData: OAuth2 / OpenID Connect (FAPI) via CDR accredited-data-recipient model
+  specProvenance:
+    file: openapi/banksa-cds-banking-products-openapi.yml
+    source: https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.yaml
+    title: CDR Banking API
+    version: 1.36.0
+    openapi: 3.0.3
+    proprietary: false
+    note: |
+      Shared DSB Consumer Data Standards banking spec covering the full CDR Banking API
+      (products plus authenticated account/balance/transaction endpoints). It is the
+      standard contract BankSA's PRD host conforms to, not a bank-authored document.
+sources:
+  - url: https://digital-api.banksa.com.au/cds-au/v1/banking/products
+    type: APIReference
+    note: Confirmed HTTP 200, x-v 5, data.products array (40 records).
+  - url: https://www.banksa.com.au/privacy
+    type: PrivacyPolicy
+    note: Footer confirms "BankSA - A Division of Westpac Banking Corporation ABN 33 007 457 141 AFSL and Australian credit licence 233714". No CDR mention.
+  - url: https://consumerdatastandardsaustralia.github.io/standards/
+    type: Documentation
+    note: DSB Consumer Data Standards - the standard the PRD API conforms to.

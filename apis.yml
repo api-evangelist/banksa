@@ -1,0 +1,90 @@
+aid: banksa
+url: https://raw.githubusercontent.com/api-evangelist/banksa/refs/heads/main/apis.yml
+name: BankSA
+kind: company
+description: BankSA is a South Australian retail and business banking brand operating
+  as a division of Westpac Banking Corporation (ABN 33 007 457 141, AFSL and Australian
+  credit licence 233714). It is not a mutual or independent ADI - it shares the Westpac
+  Group core banking platform alongside sibling brands St.George and Bank of Melbourne.
+  Under Australia's Consumer Data Right (CDR / Open Banking) regime, BankSA exposes a
+  live, public, unauthenticated Product Reference Data (PRD) API conforming to the DSB
+  Consumer Data Standards, hosted at digital-api.banksa.com.au. Consumer and account
+  data sharing beyond product reference data runs on the accredited-data-recipient (ADR)
+  model with OAuth2 / OpenID Connect (FAPI) authorization; BankSA does not publish an
+  open self-service developer portal for third-party integration outside the CDR channel.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial
+- Banks
+- Open Banking
+- CDR
+- Consumer Data Right
+- Consumer Banking
+- Australia
+- Product Reference Data
+created: '2026-07-20'
+modified: '2026-07-20'
+specificationVersion: '0.19'
+apis:
+- aid: banksa:banksa-cdr-product-reference-data-api
+  name: BankSA CDR Product Reference Data API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Reference Data
+  - Banking
+  - Public
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  baseURL: https://digital-api.banksa.com.au/cds-au/v1
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+    type: APIReference
+  - url: openapi/banksa-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated Consumer Data Right Product Reference Data (PRD)
+    endpoint listing BankSA banking products (GET /banking/products). Confirmed live
+    returning HTTP 200 with an x-v response header (versions 4 and 5 supported) and a
+    data.products array of 40 products across categories such as transaction and savings
+    accounts, home loans, and credit cards. Conforms to the DSB Consumer Data Standards
+    CDR Banking API contract.
+- aid: banksa:banksa-cdr-product-detail-api
+  name: BankSA CDR Product Detail API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Reference Data
+  - Banking
+  - Public
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-product-detail
+  baseURL: https://digital-api.banksa.com.au/cds-au/v1
+  properties:
+  - url: https://consumerdatastandardsaustralia.github.io/standards/
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-product-detail
+    type: APIReference
+  - url: openapi/banksa-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated Consumer Data Right endpoint returning full detail
+    for a single product (GET /banking/products/{productId}). Confirmed live returning
+    HTTP 200 with an x-v response header (versions 6 and 7 supported). Part of the same
+    DSB Consumer Data Standards CDR Banking PRD surface as the product listing endpoint.
+common:
+- type: Website
+  url: https://www.banksa.com.au/
+- type: PrivacyPolicy
+  url: https://www.banksa.com.au/privacy
+- type: DomainSecurity
+  url: https://www.banksa.com.au/security
+- type: Support
+  url: https://www.banksa.com.au/help
+- type: LinkedIn
+  url: https://www.linkedin.com/company/bank-sa
+- type: Documentation
+  url: https://consumerdatastandardsaustralia.github.io/standards/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
