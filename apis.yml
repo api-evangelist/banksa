@@ -164,6 +164,8 @@ apis:
     Data Standards CDR Banking API (v1.36.0) and implemented by BankSA as an accredited
     data holder within the Westpac Group.
 common:
+- type: AgenticAccess
+  url: agentic-access/banksa-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/banksa-vulnerability-disclosure.yml
 - type: Security
