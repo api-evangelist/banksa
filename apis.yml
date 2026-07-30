@@ -12,7 +12,19 @@ description: BankSA is a South Australian retail and business banking brand oper
   data sharing beyond product reference data runs on the accredited-data-recipient (ADR)
   model with OAuth2 / OpenID Connect (FAPI) authorization; BankSA does not publish an
   open self-service developer portal for third-party integration outside the CDR channel.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/banksa.png
 tags:
 - Financial
 - Banks
@@ -26,143 +38,188 @@ created: '2026-07-20'
 modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
-- aid: banksa:banksa-cdr-product-reference-data-api
-  name: BankSA CDR Product Reference Data API
-  tags:
-  - CDR
-  - Open Banking
-  - Product Reference Data
-  - Banking
-  - Public
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: banksa:banksa-banking-account-balances-api
+  name: BankSA Banking Account Balances API
+  description: Banking Account Balance endpoints
   humanURL: https://www.banksa.com.au/online-services/open-banking/product-api
   baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/products
-  properties:
-  - url: https://www.banksa.com.au/online-services/open-banking
-    type: Documentation
-  - url: https://www.banksa.com.au/online-services/open-banking/product-api
-    type: APIReference
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
-    type: Specification
-  - url: openapi/banksa-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Public, unauthenticated Consumer Data Right Product Reference Data (PRD)
-    surface covering Get Products (GET /banking/products) and Get Product Detail (GET
-    /banking/products/{productId}). BankSA documents the base URI as
-    https://digital-api.banksa.com.au/cds-au/v1/banking/products/ and states no security
-    or headers are required - available to everyone with no restrictions on use. Confirmed
-    live returning HTTP 200 with an x-v response header (product list supports versions 4
-    and 5; product detail supports 6 and 7) and a data.products array of banking products
-    across transaction and savings accounts, home loans, and credit cards. Conforms to the
-    DSB Consumer Data Standards CDR Banking API contract.
-- aid: banksa:banksa-cdr-accounts-balances-api
-  name: BankSA CDR Accounts & Balances API
   tags:
-  - CDR
-  - Open Banking
-  - Accounts
-  - Balances
-  - Banking
-  - Consumer Data
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.banksa.com.au/online-services/open-banking
-  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/accounts
+  - Banking Account Balances
   properties:
-  - url: https://www.banksa.com.au/online-services/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
-    type: Specification
-  - url: openapi/banksa-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right endpoints for account and balance
-    data sharing - Get Accounts (GET /banking/accounts), Get Account Detail (GET
-    /banking/accounts/{accountId}), Get Bulk Balances (GET /banking/accounts/balances) and
-    Get Account Balance (GET /banking/accounts/{accountId}/balance). Unlike the public PRD
-    surface, these require an accredited data recipient (ADR) acting on the consumer's
-    behalf with OAuth2 / OpenID Connect (FAPI) authorization and explicit consent captured
-    in the customer's Internet Banking data sharing dashboard. Standardized by the DSB
-    Consumer Data Standards CDR Banking API (v1.36.0) and legally required of BankSA as an
-    accredited data holder within the Westpac Group.
-- aid: banksa:banksa-cdr-transactions-api
-  name: BankSA CDR Transactions API
+  - type: OpenAPI
+    url: openapi/banksa-banking-account-balances-api-openapi.yml
+  - type: Documentation
+    url: https://www.banksa.com.au/online-services/open-banking
+  - type: APIReference
+    url: https://www.banksa.com.au/online-services/open-banking/product-api
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions-for-account
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits-for-account
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: banksa:banksa-banking-account-direct-debits-api
+  name: BankSA Banking Account Direct Debits API
+  description: Banking Account Direct Debit endpoints
+  humanURL: https://www.banksa.com.au/online-services/open-banking/product-api
+  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Transactions
-  - Banking
-  - Consumer Data
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.banksa.com.au/online-services/open-banking
-  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/accounts
+  - Banking Account Direct Debits
   properties:
-  - url: https://www.banksa.com.au/online-services/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions-for-account
-    type: Specification
-  - url: openapi/banksa-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right endpoints for transaction data
-    sharing - Get Transactions For Account (GET /banking/accounts/{accountId}/transactions)
-    and Get Transaction Detail (GET
-    /banking/accounts/{accountId}/transactions/{transactionId}). Requires an accredited
-    data recipient acting on the consumer's behalf under the OAuth2 / OpenID Connect (FAPI)
-    authorization model with active consent; it is not part of the public unauthenticated
-    surface. Standardized by the DSB Consumer Data Standards CDR Banking API (v1.36.0) and
-    implemented by BankSA as an accredited data holder within the Westpac Group.
-- aid: banksa:banksa-cdr-direct-debits-scheduled-payments-api
-  name: BankSA CDR Direct Debits & Scheduled Payments API
+  - type: OpenAPI
+    url: openapi/banksa-banking-account-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://www.banksa.com.au/online-services/open-banking
+  - type: APIReference
+    url: https://www.banksa.com.au/online-services/open-banking/product-api
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions-for-account
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits-for-account
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: banksa:banksa-banking-account-scheduled-payments-api
+  name: BankSA Banking Account Scheduled Payments API
+  description: Banking Account Scheduled Payment endpoints
+  humanURL: https://www.banksa.com.au/online-services/open-banking/product-api
+  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Direct Debits
-  - Scheduled Payments
-  - Banking
-  - Consumer Data
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.banksa.com.au/online-services/open-banking
-  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking
+  - Banking Account Scheduled Payments
   properties:
-  - url: https://www.banksa.com.au/online-services/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits-for-account
-    type: Specification
-  - url: openapi/banksa-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right endpoints for recurring-payment
-    data sharing - Get Direct Debits For Account (GET
-    /banking/accounts/{accountId}/direct-debits), Get Bulk Direct Debits (GET
-    /banking/accounts/direct-debits), Get Scheduled Payments For Account (GET
-    /banking/accounts/{accountId}/payments/scheduled) and Get Scheduled Payments Bulk (GET
-    /banking/payments/scheduled). These require an accredited data recipient acting on the
-    consumer's behalf under OAuth2 / OpenID Connect (FAPI) authorization with active
-    consent. Standardized by the DSB Consumer Data Standards CDR Banking API (v1.36.0) and
-    implemented by BankSA as an accredited data holder within the Westpac Group.
-- aid: banksa:banksa-cdr-payees-api
-  name: BankSA CDR Payees API
+  - type: OpenAPI
+    url: openapi/banksa-banking-account-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://www.banksa.com.au/online-services/open-banking
+  - type: APIReference
+    url: https://www.banksa.com.au/online-services/open-banking/product-api
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions-for-account
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits-for-account
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: banksa:banksa-banking-account-transactions-api
+  name: BankSA Banking Account Transactions API
+  description: Banking Account Transaction endpoints
+  humanURL: https://www.banksa.com.au/online-services/open-banking/product-api
+  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Payees
-  - Banking
-  - Consumer Data
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.banksa.com.au/online-services/open-banking
-  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/payees
+  - Banking Account Transactions
   properties:
-  - url: https://www.banksa.com.au/online-services/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
-    type: Specification
-  - url: openapi/banksa-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: Consumer-authorized Consumer Data Right endpoints for saved-payee data
-    sharing - Get Payees (GET /banking/payees) and Get Payee Detail (GET
-    /banking/payees/{payeeId}). Requires an accredited data recipient acting on the
-    consumer's behalf under the OAuth2 / OpenID Connect (FAPI) authorization model with
-    active consent captured in the customer's Internet Banking data sharing dashboard; it
-    is not part of the public unauthenticated PRD surface. Standardized by the DSB Consumer
-    Data Standards CDR Banking API (v1.36.0) and implemented by BankSA as an accredited
-    data holder within the Westpac Group.
+  - type: OpenAPI
+    url: openapi/banksa-banking-account-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://www.banksa.com.au/online-services/open-banking
+  - type: APIReference
+    url: https://www.banksa.com.au/online-services/open-banking/product-api
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions-for-account
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits-for-account
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: banksa:banksa-banking-accounts-api
+  name: BankSA Banking Accounts API
+  description: Banking Account endpoints
+  humanURL: https://www.banksa.com.au/online-services/open-banking/product-api
+  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/banksa-banking-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://www.banksa.com.au/online-services/open-banking
+  - type: APIReference
+    url: https://www.banksa.com.au/online-services/open-banking/product-api
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions-for-account
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits-for-account
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: banksa:banksa-banking-payees-api
+  name: BankSA Banking Payees API
+  description: Banking Payee endpoints
+  humanURL: https://www.banksa.com.au/online-services/open-banking/product-api
+  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Payees
+  properties:
+  - type: OpenAPI
+    url: openapi/banksa-banking-payees-api-openapi.yml
+  - type: Documentation
+    url: https://www.banksa.com.au/online-services/open-banking
+  - type: APIReference
+    url: https://www.banksa.com.au/online-services/open-banking/product-api
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions-for-account
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits-for-account
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
+- aid: banksa:banksa-banking-products-api
+  name: BankSA Banking Products API
+  description: Banking Product endpoints
+  humanURL: https://www.banksa.com.au/online-services/open-banking/product-api
+  baseURL: https://digital-api.banksa.com.au/cds-au/v1/banking/products
+  tags:
+  - Banking Products
+  properties:
+  - type: OpenAPI
+    url: openapi/banksa-banking-products-api-openapi.yml
+  - type: Documentation
+    url: https://www.banksa.com.au/online-services/open-banking
+  - type: APIReference
+    url: https://www.banksa.com.au/online-services/open-banking/product-api
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-accounts
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-transactions-for-account
+  - type: Specification
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-direct-debits-for-account
+  - type: Specification
+    url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
 common:
 - type: AgenticAccess
   url: agentic-access/banksa-agentic-access.yml
