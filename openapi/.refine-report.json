@@ -1,0 +1,26 @@
+{
+  "provider": "banksa",
+  "sources": [
+    "banksa-banking-account-balances-api-openapi.yml",
+    "banksa-banking-account-direct-debits-api-openapi.yml",
+    "banksa-banking-account-scheduled-payments-api-openapi.yml",
+    "banksa-banking-account-transactions-api-openapi.yml",
+    "banksa-banking-accounts-api-openapi.yml",
+    "banksa-banking-payees-api-openapi.yml",
+    "banksa-banking-products-api-openapi.yml"
+  ],
+  "outputs": [
+    "banksa-banking-account-balances-api-openapi.yml",
+    "banksa-banking-account-direct-debits-api-openapi.yml",
+    "banksa-banking-account-scheduled-payments-api-openapi.yml",
+    "banksa-banking-account-transactions-api-openapi.yml",
+    "banksa-banking-accounts-api-openapi.yml",
+    "banksa-banking-payees-api-openapi.yml",
+    "banksa-banking-products-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
