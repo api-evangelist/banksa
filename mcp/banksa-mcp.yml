@@ -1,20 +1,17 @@
 generated: '2026-07-20'
 method: derived
 status: candidate
-source: >-
-  Derived candidate MCP tool surface — one tool per operationId in
-  openapi/banksa-cds-banking-products-openapi.yml. BankSA publishes no official
-  hosted or local MCP server (no developer portal, no npm/registry package
-  found). Only the two Product Reference Data tools are publicly callable without
-  CDR accreditation; the remaining tools require an accredited-data-recipient
-  OAuth/mTLS session and are listed for completeness of the standard's surface.
+source: Derived candidate MCP tool surface — one tool per operationId in openapi/banksa-cds-banking-products-openapi.yml.
+  BankSA publishes no official hosted or local MCP server (no developer portal, no npm/registry package
+  found). Only the two Product Reference Data tools are publicly callable without CDR accreditation; the
+  remaining tools require an accredited-data-recipient OAuth/mTLS session and are listed for completeness
+  of the standard's surface.
 server:
   name: banksa-cdr-banking
   transport: http
   url: null
-  auth: >-
-    Public PRD tools: none. Consumer-data tools: OAuth 2.0 / FAPI 1.0 Advanced
-    with mTLS (CDR accredited data recipient) — not self-service.
+  auth: 'Public PRD tools: none. Consumer-data tools: OAuth 2.0 / FAPI 1.0 Advanced with mTLS (CDR accredited
+    data recipient) — not self-service.'
 public_tools:
 - name: list_banking_products
   description: List BankSA banking products (public CDR Product Reference Data).
@@ -74,3 +71,8 @@ consumer_data_tools:
 - name: get_banking_payee_detail
   description: Get detail for one payee.
   source_operation: openapi/banksa-cds-banking-products-openapi.yml#getBankingPayeeDetail
+deployment:
+  mode: none
+  verified: derived
+  checked: '2026-08-12'
+  source: catalog MCP census
