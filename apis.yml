@@ -12,6 +12,17 @@ description: BankSA is a South Australian retail and business banking brand oper
   data sharing beyond product reference data runs on the accredited-data-recipient (ADR)
   model with OAuth2 / OpenID Connect (FAPI) authorization; BankSA does not publish an
   open self-service developer portal for third-party integration outside the CDR channel.
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
