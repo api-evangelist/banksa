@@ -232,6 +232,9 @@ apis:
   - type: Specification
     url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
 common:
+- type: CapabilityMap
+  url: capabilities/banksa-capability-edges.yml
+  name: BankSA Business Capability Map
 - type: AgenticAccess
   url: agentic-access/banksa-agentic-access.yml
 - type: VulnerabilityDisclosure
