@@ -1,0 +1,54 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.banksa.com.au/business/payment-solutions/eftpos-fees
+sources:
+- https://www.banksa.com.au/business/payment-solutions/eftpos-fees
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T125857
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: ad-valorem
+published: true
+note: 'Australian bank EFTPOS merchant fee page; GST-inclusive prices. Also lists accessories: EFTPOS
+  Connect $77 per stand, $22 per USB cable, $33 per RS232 & DC cable, $22 per ethernet cable, $26.40 per
+  power supply; EFTPOS Now $96.80 per base, $27.50 per car charger, $4.95 per ethernet cable, $16.50 per
+  power supply. No API pricing.'
+plan_count: 5
+currency: AUD
+plans:
+- name: Flat transaction rate
+  price_text: 1.2%
+  price: 1.2
+  currency: AUD
+  period: per-use
+  unit: per transaction
+  included_quota: Charged on all eftpos, Mastercard®, Visa® and UnionPay transactions
+- name: EFTPOS Now monthly terminal fee
+  price_text: $24.75 a month terminal fee
+  price: 24.75
+  currency: AUD
+  period: month
+  unit: terminal
+  included_quota: Providing and maintaining your terminal, including 24/7 helpdesk support
+- name: EFTPOS Connect monthly terminal fee
+  price_text: $27.50 a month terminal fee
+  price: 27.5
+  currency: AUD
+  period: month
+  unit: terminal
+  included_quota: Integrates with Linkly POS
+- name: Equipment not returned/damaged fee
+  price_text: $550 (maximum fee charged.)
+  price: 550
+  currency: AUD
+  period: one-time
+  unit: terminal
+- name: Chargeback fee
+  price_text: $0
+  price: 0
+  currency: AUD
+  period: per-use
+  unit: dispute
+  included_quota: However, we may charge if disputes are excessive

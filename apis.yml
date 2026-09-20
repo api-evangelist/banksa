@@ -232,6 +232,10 @@ apis:
   - type: Specification
     url: https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-payees
 common:
+- type: Pricing
+  url: https://www.banksa.com.au/business/payment-solutions/eftpos-fees
+- type: Plans
+  url: plans/banksa-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/banksa-capability-edges.yml
   name: BankSA Business Capability Map
