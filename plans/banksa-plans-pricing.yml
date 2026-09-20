@@ -10,6 +10,10 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: business-product
 pricing_basis: ad-valorem
+delivery:
+  delivery: managed
+  method: keyword-prefilter
+  read: '2026-09-20'
 published: true
 note: 'Australian bank EFTPOS merchant fee page; GST-inclusive prices. Also lists accessories: EFTPOS
   Connect $77 per stand, $22 per USB cable, $33 per RS232 & DC cable, $22 per ethernet cable, $26.40 per
