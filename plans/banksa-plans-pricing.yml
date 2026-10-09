@@ -56,3 +56,53 @@ plans:
   period: per-use
   unit: dispute
   included_quota: However, we may charge if disputes are excessive
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - hybrid
+  - subscription
+  units:
+  - transaction
+  plans:
+  - name: Flat transaction rate
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - transaction
+    periods:
+    - other
+  - name: EFTPOS Now monthly terminal fee
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: EFTPOS Connect monthly terminal fee
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Equipment not returned/damaged fee
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - one-time
+  - name: Chargeback fee
+    access: other
+    model: free
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
