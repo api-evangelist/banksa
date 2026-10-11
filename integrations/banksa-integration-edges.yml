@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/banksa/integrations
+- https://n8n.io/integrations/banksa/
+- https://composio.dev/toolkits/banksa
+- https://monid.ai/tools/banksa
+checked:
+- https://composio.dev/toolkits/banksa
+- https://monid.ai/tools/banksa
+- https://n8n.io/integrations/banksa/
+- https://zapier.com/apps/banksa/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
