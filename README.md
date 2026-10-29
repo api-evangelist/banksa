@@ -1,4 +1,4 @@
-# BankSA (banksa)
+# BankSA
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,80 +64,142 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-BankSA is a South Australian retail and business banking brand operating as a division of Westpac Banking Corporation (ABN 33 007 457 141, AFSL and Australian credit licence 233714). It shares the Westpac Group core banking platform alongside sibling brands St.George and Bank of Melbourne. Under Australia's Consumer Data Right (CDR / Open Banking) regime, BankSA exposes a live, public, unauthenticated Product Reference Data (PRD) API conforming to the DSB Consumer Data Standards, hosted at `digital-api.banksa.com.au`.
+BankSA is a South Australian retail and business banking brand operating as a division of Westpac Banking Corporation (ABN 33 007 457 141, AFSL and Australian credit licence 233714). It is not a mutual or independent ADI - it shares the Westpac Group core banking platform alongside sibling brands St.George and Bank of Melbourne. Under Australia's Consumer Data Right (CDR / Open Banking) regime, BankSA exposes a live, public, unauthenticated Product Reference Data (PRD) API conforming to the DSB Consumer Data Standards, hosted at digital-api.banksa.com.au. Consumer and account data sharing beyond product reference data runs on the accredited-data-recipient (ADR) model with OAuth2 / OpenID Connect (FAPI) authorization; BankSA does not publish an open self-service developer portal for third-party integration outside the CDR channel.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/banksa/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/banksa/refs/heads/main/apis.yml)
+**Areas:** Finance · Banks · Open Banking · CDR · Consumer Data Right · Consumer Banking · Australia · Product Reference Data
 
-## Tags
+## BankSA on APIs.io
 
-- Financial
-- Banks
-- Open Banking
-- CDR
-- Consumer Data Right
-- Consumer Banking
-- Australia
-- Product Reference Data
+Everything profiled for BankSA is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/banksa/](https://apis.io/providers/banksa/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (7)
 
-- **Created:** 2026-07-20
-- **Modified:** 2026-07-20
+- [BankSA Banking Account Balances API](https://apis.io/apis/banksa/banksa-banking-account-balances-api/) — Banking Account Balance endpoints
+- [BankSA Banking Account Direct Debits API](https://apis.io/apis/banksa/banksa-banking-account-direct-debits-api/) — Banking Account Direct Debit endpoints
+- [BankSA Banking Account Scheduled Payments API](https://apis.io/apis/banksa/banksa-banking-account-scheduled-payments-api/) — Banking Account Scheduled Payment endpoints
+- [BankSA Banking Account Transactions API](https://apis.io/apis/banksa/banksa-banking-account-transactions-api/) — Banking Account Transaction endpoints
+- [BankSA Banking Accounts API](https://apis.io/apis/banksa/banksa-banking-accounts-api/) — Banking Account endpoints
+- [BankSA Banking Payees API](https://apis.io/apis/banksa/banksa-banking-payees-api/) — Banking Payee endpoints
+- [BankSA Banking Products API](https://apis.io/apis/banksa/banksa-banking-products-api/) — Banking Product endpoints
 
-## APIs
+### Published properties
 
-### BankSA CDR Product Reference Data API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Public, unauthenticated Consumer Data Right Product Reference Data (PRD) endpoint listing BankSA banking products (`GET /banking/products`). Confirmed live returning HTTP 200 with an `x-v` response header (versions 4 and 5 supported) and a `data.products` array of 40 products across categories such as transaction and savings accounts, home loans, and credit cards. Conforms to the DSB Consumer Data Standards CDR Banking API contract.
+#### MCP servers (1)
 
-- **Human URL:** [https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products](https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products)
-- **Base URL:** `https://digital-api.banksa.com.au/cds-au/v1`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [banksa-cdr-banking](https://apis.io/servers/banksa/banksa-cdr-banking/)
 
-- CDR
-- Open Banking
-- Product Reference Data
-- Banking
-- Public
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://consumerdatastandardsaustralia.github.io/standards/)
-- [API Reference](https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-products)
-- [OpenAPI](openapi/banksa-cds-banking-products-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Banksa Agentic Access](https://apis.io/agentic-access/banksa/banksa-agentic-access/)
 
-### BankSA CDR Product Detail API
+#### Collections (7)
 
-Public, unauthenticated Consumer Data Right endpoint returning full detail for a single product (`GET /banking/products/{productId}`). Confirmed live returning HTTP 200 with an `x-v` response header (versions 6 and 7 supported). Part of the same DSB Consumer Data Standards CDR Banking PRD surface as the product listing endpoint.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-product-detail](https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-product-detail)
-- **Base URL:** `https://digital-api.banksa.com.au/cds-au/v1`
+- [CDR Banking Banking Account Balances API](https://apis.io/collections/banksa/open-banksa-banking-account-balances-api/)
+- [CDR Banking Banking Account Balances Banking Account Direct Debits API](https://apis.io/collections/banksa/open-banksa-banking-account-direct-debits-api/)
+- [CDR Banking Banking Account Balances Banking Account Scheduled Payments API](https://apis.io/collections/banksa/open-banksa-banking-account-scheduled-payments-api/)
+- [CDR Banking Banking Account Balances Banking Account Transactions API](https://apis.io/collections/banksa/open-banksa-banking-account-transactions-api/)
+- [CDR Banking Banking Account Balances Banking Accounts API](https://apis.io/collections/banksa/open-banksa-banking-accounts-api/)
+- [CDR Banking Banking Account Balances Banking Payees API](https://apis.io/collections/banksa/open-banksa-banking-payees-api/)
+- [CDR Banking Banking Account Balances Banking Products API](https://apis.io/collections/banksa/open-banksa-banking-products-api/)
 
-#### Tags
+#### Overlays (1)
 
-- CDR
-- Open Banking
-- Product Reference Data
-- Banking
-- Public
+OpenAPI overlays, including conversational phrasing for each operation.
 
-#### Properties
+- [Banksa Cds Banking Products Overlay](https://apis.io/overlays/banksa/banksa-cds-banking-products-overlay/)
 
-- [Documentation](https://consumerdatastandardsaustralia.github.io/standards/)
-- [API Reference](https://consumerdatastandardsaustralia.github.io/standards/#cdr-banking-api_get-product-detail)
-- [OpenAPI](openapi/banksa-cds-banking-products-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+#### Security (3)
 
-## Common Properties
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Banksa Authentication](https://apis.io/security/banksa/banksa-authentication/)
+- [Banksa Domain Security](https://apis.io/security/banksa/banksa-domain-security/)
+- [Banksa Vulnerability Disclosure](https://apis.io/security/banksa/banksa-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Banksa Scopes](https://apis.io/scopes/banksa/banksa-scopes/)
+
+#### Plans and pricing (2)
+
+Published plans, tiers and prices.
+
+- [Banksa Plans Pricing](https://apis.io/plans/banksa/banksa-plans-pricing/)
+- [Banksa Price Estimates](https://apis.io/plans/banksa/banksa-price-estimates/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.banksa.com.au/)
-- [Privacy Policy](https://www.banksa.com.au/privacy)
-- [Domain Security](https://www.banksa.com.au/security)
-- [Support](https://www.banksa.com.au/help)
-- [LinkedIn](https://www.linkedin.com/company/bank-sa)
 - [Documentation](https://consumerdatastandardsaustralia.github.io/standards/)
+- [API reference](https://www.banksa.com.au/online-services/open-banking/product-api)
+- [Pricing](https://www.banksa.com.au/business/payment-solutions/eftpos-fees)
+- [Support](https://www.banksa.com.au/help)
+- [Security](https://www.banksa.com.au/online-services/security-centre)
+- [Privacy policy](https://www.banksa.com.au/privacy/privacy-statement)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 42.1** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 44.7 |
+| Contract governance | 4.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 35.1 |
+| Access clarity | 52.6 |
+
+**Agent readiness 25.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 45.7** — Banking & Open Finance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/banksa/](https://apis.io/providers/banksa/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for BankSA: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/banksa/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
